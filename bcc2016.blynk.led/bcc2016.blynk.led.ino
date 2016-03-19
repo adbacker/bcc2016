@@ -1,4 +1,4 @@
-/**************************************************************
+ /**************************************************************
  * Blynk is a platform with iOS and Android apps to control
  * Arduino, Raspberry Pi and the likes over the Internet.
  * You can easily build graphic interfaces for all your
@@ -31,12 +31,13 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "your_blynk_app_key";
+char auth[] = "08650294c49047dd836ea4aad1503bd9";
 
 void setup()
 {
   Serial.begin(115200);
-  Blynk.begin(auth, "your_wifi_ssid", "your_wifi_password");
+  //fourth param of ip address of blynk server if running locally
+  Blynk.begin(auth, "backernet", "snoopy123");
 }
 
 void loop()

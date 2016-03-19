@@ -41,14 +41,13 @@ Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "your_blynk_app_key";
+char auth[] = "08650294c49047dd836ea4aad1503bd9";
 WidgetLCD lcd(V1);
 
 SimpleTimer timer;  //blynk likes us to use a timer
-
+int distanceToGarageDoor=0;
 
 bool garageDoorIsClosed() {
-  int distanceToGarageDoor = ultrasonic.Ranging(CM);
   if (distanceToGarageDoor > GARAGE_DOOR_CLOSED_THRESHOLD) {
     return false;
   } 
@@ -57,25 +56,28 @@ bool garageDoorIsClosed() {
 
 
 void updateLcd() {
+  distanceToGarageDoor = ultrasonic.Ranging(CM);
+
   lcd.clear(); //Use it to clear the LCD Widget
   lcd.print(1,0, "Garage door is");
   if (garageDoorIsClosed()) {
-    lcd.print(5,1, "CLOSED");
+    lcd.print(1,1, "CLOSED");
   }
   else {
-    lcd.print(8,1, "OPEN");
+    lcd.print(1,1, "OPEN");
   }
+  lcd.print(8,1,distanceToGarageDoor);
 }
 
 void setup()
 {
   Serial.begin(115200);
-  Blynk.begin(auth, "your_wifi_ssid", "your_wifi_password");
+  Blynk.begin(auth, "backernet", "snoopy123");
   while (Blynk.connect() == false) {
     // Wait until connected
   }
   // Setup a function to be called every second
-  timer.setInterval(5000L, updateLcd);
+  timer.setInterval(2000L, updateLcd);
 }
 
 void loop()

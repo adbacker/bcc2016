@@ -44,7 +44,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "your_blynk_app_key";
+char auth[] = "4e23dbd3ccf6409c995a8d6b35d0a2ec";
 
 SimpleTimer timer;
 
@@ -52,7 +52,7 @@ SimpleTimer timer;
 // This function sends Arduino's up time every second to Virtual Pin (5).
 // In the app, Widget's reading frequency should be set to PUSH. This means
 // that you define how often to send data to Blynk App.
-void sendUptime()
+void sendTemp()
 {
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
@@ -79,12 +79,12 @@ void sendUptime()
 void setup()
 {
   Serial.begin(115200); // See the connection status in Serial Monitor
-  Blynk.begin(auth,"your_wifi_ssid","your_wifi_password");
+  Blynk.begin(auth,"backernet","snoopy123");
   dht.begin();
 
 
   // Setup a function to be called every second
-  timer.setInterval(1000L, sendUptime);
+  timer.setInterval(1000L, sendTemp);
 }
 
 void loop()

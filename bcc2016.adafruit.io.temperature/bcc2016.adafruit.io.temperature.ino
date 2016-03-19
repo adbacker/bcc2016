@@ -39,10 +39,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    "your_adafruit_username"
-#define AIO_KEY         "your_adafruit_aio_key"
-
-#define TEMPERATURE_SENSOR_PIN 16
+#define AIO_USERNAME    "adbacker"
+#define AIO_KEY         "fa97760f0254dd1f92bb7dacc365a14b1b045ffb"
 
 
 /************ Global State (you don't need to change this!) ******************/
@@ -83,11 +81,11 @@ void setup() {
   Serial.begin(115200);
    
   dht.begin();
+  pinMode(DHTPIN, INPUT); //temp sensor pin, init as input
 
   delay(10);
 
   Serial.println(F("Adafruit MQTT demo"));
-  pinMode(TEMPERATURE_SENSOR_PIN, INPUT); //temp sensor pin, init as input
 
   // Connect to WiFi access point.
   Serial.println(); Serial.println();
