@@ -60,7 +60,10 @@ WidgetLED garageLightIndicatorLed(V2);
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "4e23dbd3ccf6409c995a8d6b35d0a2ec";
+char auth[] = "blynk_big_long_alphanumeric_string_here";
+#define WIFI_SSID = "your_wifi_ssid"
+#define WIFI_PW = "your_wifi_password"
+
 
 SimpleTimer timer;
 
@@ -132,7 +135,7 @@ void setup()
 {
   Serial.begin(115200); // See the connection status in Serial Monitor
   pinMode(WATER_SENSOR_PIN, INPUT); //water sensor pin, init as input
-  Blynk.begin(auth,"key-guest","917$L^sk");
+  Blynk.begin(auth, WIFI_SSID, WIFI_PW);
     while (Blynk.connect() == false) {
     // Wait until connected
   }

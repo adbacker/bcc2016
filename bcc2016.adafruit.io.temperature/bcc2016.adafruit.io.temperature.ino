@@ -23,7 +23,7 @@
 
 /************************* DHT sensor setup *********************************/
 #include <DHT.h>
-#define DHTPIN 5     // what digital pin we're connected to
+#define DHTPIN 4     // what digital pin we're connected to
 // Uncomment whatever type you're using!
 //#define DHTTYPE DHT11   // DHT 11
 #define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
@@ -32,15 +32,15 @@ DHT dht(DHTPIN, DHTTYPE);
 
 /************************* WiFi Access Point *********************************/
 
-#define WLAN_SSID       "backernet"
-#define WLAN_PASS       "snoopy123"
+#define WLAN_SSID       "wifi_ssid"
+#define WLAN_PASS       "wifi_password"
 
 /************************* Adafruit.io Setup *********************************/
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    "adbacker"
-#define AIO_KEY         "fa97760f0254dd1f92bb7dacc365a14b1b045ffb"
+#define AIO_USERNAME    "adafruit_userid"
+#define AIO_KEY         "adafruit_big_long_alphanumeric_string_here"
 
 
 /************ Global State (you don't need to change this!) ******************/
