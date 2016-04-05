@@ -60,7 +60,7 @@ WidgetLED garageLightIndicatorLed(V2);
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "4e23dbd3ccf6409c995a8d6b35d0a2ec";
+char auth[] = "your_blynk_token_here";
 #define WIFI_SSID "wifi_ssid_here"
 #define WIFI_PW "wifi_password_here"
 
