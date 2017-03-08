@@ -33,8 +33,8 @@
 #include <SimpleTimer.h>
 
 /* ultrasonic sensor stuff */
-#define ULTRASONIC_ECHO_PIN 12
-#define ULTRASONIC_TRIGGER_PIN 13
+#define ULTRASONIC_ECHO_PIN 12 //D6 on nodeMCU
+#define ULTRASONIC_TRIGGER_PIN 13 //D7 on nodeMCU
 Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,Echo PIN)
 
 #define GARAGE_DOOR_CLOSED_THRESHOLD 25
