@@ -31,8 +31,8 @@
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    "adbacker"
-#define AIO_KEY         "57181e2d67e24f9a8db02311c8c7adc7"
+#define AIO_USERNAME    "adafruit_username"
+#define AIO_KEY         "big_long_adafruit_iot_key"
 
 /************ Global State (you don't need to change this!) ******************/
 
