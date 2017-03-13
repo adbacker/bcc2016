@@ -29,12 +29,12 @@
 #define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
-#include <Ultrasonic.h>
+#include "Ultrasonic.h"
 #include <SimpleTimer.h>
 
 /* ultrasonic sensor stuff */
-#define ULTRASONIC_ECHO_PIN 12
-#define ULTRASONIC_TRIGGER_PIN 13
+#define ULTRASONIC_ECHO_PIN 13
+#define ULTRASONIC_TRIGGER_PIN 12
 Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,Echo PIN)
 
 #define GARAGE_DOOR_CLOSED_THRESHOLD 25
@@ -42,8 +42,8 @@ Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_wifi_ssid"
-#define WIFI_PW "your_wifi_password"
+#define WIFI_SSID "your_ssid_here"
+#define WIFI_PW "your_wifi_pw"
 
 WidgetLCD lcd(V1);
 
@@ -60,8 +60,8 @@ bool garageDoorIsClosed() {
 
 void updateLcd() {
   distanceToGarageDoor = ultrasonic.Ranging(CM);
-
-  lcd.clear(); //Use it to clear the LCD Widget
+  Serial.println(distanceToGarageDoor);
+  //lcd.clear(); //Use it to clear the LCD Widget
   lcd.print(1,0, "Garage door is");
   if (garageDoorIsClosed()) {
     lcd.print(1,1, "CLOSED");
@@ -69,6 +69,7 @@ void updateLcd() {
   else {
     lcd.print(1,1, "OPEN");
   }
+  lcd.print(8,1,"    ");
   lcd.print(8,1,distanceToGarageDoor);
 }
 
@@ -80,7 +81,7 @@ void setup()
     // Wait until connected
   }
   // Setup a function to be called every second
-  timer.setInterval(2000L, updateLcd);
+  timer.setInterval(500L, updateLcd);
 }
 
 void loop()

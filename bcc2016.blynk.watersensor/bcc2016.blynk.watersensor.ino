@@ -29,21 +29,19 @@
 #define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
-#include <Ultrasonic.h>
 #include <SimpleTimer.h>
 
-#define WATER_SENSOR_PIN 16
+#define WATER_SENSOR_PIN 14 //nodemcu pin D5
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_wifi_ssid"
-#define WIFI_PW "your_wifi_password"
+#define WIFI_SSID "your_ssid_here"
+#define WIFI_PW "your_wifi_pw"
 
 WidgetLED waterWarnLed(V2);
 
 SimpleTimer timer;  //blynk likes us to use a timer
-
 
 bool isWaterDetected() {
   int isDry=HIGH; //HIGH == no water, LOW==water detected
