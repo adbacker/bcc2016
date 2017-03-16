@@ -29,55 +29,59 @@
 #define BLYNK_PRINT Serial    // Comment this out to disable prints and save space
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
-#include <Ultrasonic.h>
+#include "Ultrasonic.h"
 #include <SimpleTimer.h>
 
-#define WATER_SENSOR_PIN 16
+/* ultrasonic sensor stuff */
+#define ULTRASONIC_ECHO_PIN 12 //D6 on nodeMCU
+#define ULTRASONIC_TRIGGER_PIN 13 //D7 on nodeMCU
+Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,Echo PIN)
+
+#define GARAGE_DOOR_CLOSED_THRESHOLD 25
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_wifi_ssid"
-#define WIFI_PW "your_wifi_password"
+#define WIFI_SSID "your_ssid_here"
+#define WIFI_PW "your_wifi_pw"
 
-WidgetLED waterWarnLed(V2);
+WidgetLCD lcd(V1);
 
 SimpleTimer timer;  //blynk likes us to use a timer
+int distanceToGarageDoor=0;
 
-
-bool isWaterDetected() {
-  int isDry=HIGH; //HIGH == no water, LOW==water detected
-  isDry = digitalRead(WATER_SENSOR_PIN);
-  if (isDry) {
+bool garageDoorIsClosed() {
+  if (distanceToGarageDoor > GARAGE_DOOR_CLOSED_THRESHOLD) {
     return false;
-  }
+  } 
   return true;
 }
 
 
-void checkForWater() {
-  if (isWaterDetected()) {
-    waterWarnLed.on();
-    Blynk.notify("Water detected in garage.  You have $$ in repairs coming..!");
-    Serial.println("Water detected!  Panic Now!");
+void updateLcd() {
+  distanceToGarageDoor = ultrasonic.Ranging(CM);
+  Serial.println(distanceToGarageDoor);
+  //lcd.clear(); //Use it to clear the LCD Widget
+  lcd.print(1,0, "Garage door is");
+  if (garageDoorIsClosed()) {
+    lcd.print(1,1, "CLOSED");
   }
   else {
-    waterWarnLed.off();
+    lcd.print(1,1, "OPEN");
   }
+  lcd.print(8,1,"    ");
+  lcd.print(8,1,distanceToGarageDoor);
 }
-
 
 void setup()
 {
   Serial.begin(115200);
-  pinMode(WATER_SENSOR_PIN, INPUT); //water sensor pin, init as input
-  
   Blynk.begin(auth, WIFI_SSID, WIFI_PW);
   while (Blynk.connect() == false) {
     // Wait until connected
   }
   // Setup a function to be called every second
-  timer.setInterval(2000L, checkForWater);
+  timer.setInterval(500L, updateLcd);
 }
 
 void loop()
