@@ -53,7 +53,7 @@ Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/fee
 
 
 /*************************** DHT sensor setup Code ******************************/
-#define DHTPIN            14         // Pin which is connected to the DHT sensor.
+#define DHTPIN            14    //nodeMCU pin D5
 
 // Uncomment the type of sensor in use:
 //#define DHTTYPE           DHT11     // DHT 11 
