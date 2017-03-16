@@ -46,11 +46,10 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 
 /****************************** Feeds ***************************************/
 
-// Setup a feed called 'temperature' for publishing.
+// Setup feeds called 'temp_in_c' and 'humidity' for publishing.
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
 Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temp_in_c");
 Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");
-
 
 
 /*************************** DHT sensor setup Code ******************************/
@@ -166,7 +165,6 @@ int getHumidity() {
 
 
 
-
 void loop() {
   // Ensure the connection to the MQTT server is alive (this will make the first
   // connection and automatically reconnect when disconnected).  See the MQTT_connect
@@ -175,17 +173,16 @@ void loop() {
 
   // this is our 'wait for incoming subscription packets' busy subloop
   // try to spend your time here
-
   Adafruit_MQTT_Subscribe *subscription;
 
   // Now we can publish stuff!
+  
   // BEGIN get sensor data
   int temp = getTemp();
   int humid = getHumidity();
   // END get sensor data
   
-  
-  
+ 
   Serial.print(F("\nSending temp val "));
   Serial.print(temp);
   Serial.print("...");

@@ -35,14 +35,18 @@ void setup() {
     ESP.restart();
   }
 
-  // Port defaults to 8266
+  /*
+   * BEGIN Arduino Over-the-air update stuff
+   */
+   printToLcd("starting OTA","initialization");
+   // Port defaults to 8266
   // ArduinoOTA.setPort(8266);
  
   // Hostname defaults to esp8266-[ChipID]
-  ArduinoOTA.setHostname("watersensor");
+  //ArduinoOTA.setHostname("bcc_esp8266");
 
-  // No authentication by default
-  //ArduinoOTA.setPassword((const char *)"123");
+  // No authentication by default...but good to do!
+  ArduinoOTA.setPassword((const char *)"Abcd1234");
 
   ArduinoOTA.onStart([]() {
     Serial.println("Start");
@@ -62,13 +66,14 @@ void setup() {
     else if (error == OTA_END_ERROR) Serial.println("End Failed");
   });
   ArduinoOTA.begin();
-  Serial.println("Ready");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  printToLcd("OTA init","complete");
+  flash(4);
+  /*
+  * END Arduino Over-the-air update stuff
+  */
+  
   timer.setInterval(500L, blinkLed);
   pinMode(LEDTOBLINK, OUTPUT);
-
-  
 }
 
 void loop() {
