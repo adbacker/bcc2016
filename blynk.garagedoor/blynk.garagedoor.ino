@@ -33,8 +33,8 @@
 #include <SimpleTimer.h>
 
 /* ultrasonic sensor stuff */
-#define ULTRASONIC_ECHO_PIN 12 //D6 on nodeMCU
-#define ULTRASONIC_TRIGGER_PIN 13 //D7 on nodeMCU
+#define ULTRASONIC_ECHO_PIN 13 //D7 on nodeMCU
+#define ULTRASONIC_TRIGGER_PIN 12 //D6 on nodeMCU
 Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,Echo PIN)
 
 #define GARAGE_DOOR_CLOSED_THRESHOLD 25
@@ -42,8 +42,9 @@ Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_ssid_here"
+#define WIFI_SSID "your_ssid"
 #define WIFI_PW "your_wifi_pw"
+
 
 WidgetLCD lcd(V1);
 
@@ -64,13 +65,13 @@ void updateLcd() {
   //lcd.clear(); //Use it to clear the LCD Widget
   lcd.print(1,0, "Garage door is");
   if (garageDoorIsClosed()) {
-    lcd.print(1,1, "CLOSED");
+    lcd.print(1,1, "    CLOSED     ");
   }
   else {
-    lcd.print(1,1, "OPEN");
+    lcd.print(1,1, "     OPEN      ");
   }
-  lcd.print(8,1,"    ");
-  lcd.print(8,1,distanceToGarageDoor);
+  //lcd.print(8,1,"    ");
+  //lcd.print(8,1,distanceToGarageDoor);
 }
 
 void setup()
@@ -78,8 +79,9 @@ void setup()
   Serial.begin(115200);
   Blynk.begin(auth, WIFI_SSID, WIFI_PW);
   while (Blynk.connect() == false) {
-    // Wait until connected
+    Serial.print(".");
   }
+  Serial.println("blynk connected!");
   // Setup a function to be called every second
   timer.setInterval(500L, updateLcd);
 }
