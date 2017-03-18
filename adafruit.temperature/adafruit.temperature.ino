@@ -24,15 +24,15 @@
 
 /************************* WiFi Access Point *********************************/
 
-#define WLAN_SSID       "aperture_science"
-#define WLAN_PASS       "Abcd1234"
+#define WIFI_SSID "your_wifi_ssd"
+#define WIFI_PW "your_wifi_password"
 
 /************************* Adafruit.io Setup *********************************/
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
 #define AIO_USERNAME    "adafruit_username"
-#define AIO_KEY         "big_long_adafruit_iot_key"
+#define AIO_KEY         "adafruit_key_goz_here"
 
 /************ Global State (you don't need to change this!) ******************/
 
@@ -48,8 +48,8 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 
 // Setup feeds called 'temp_in_c' and 'humidity' for publishing.
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
-Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temp_in_c");
-Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");
+Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bcctemp");
+Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bcchumid");
 
 
 /*************************** DHT sensor setup Code ******************************/
@@ -162,7 +162,6 @@ int getHumidity() {
     return event.relative_humidity;
   }
 }
-
 
 
 void loop() {

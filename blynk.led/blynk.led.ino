@@ -31,9 +31,9 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_ssid_here"
-#define WIFI_PW "your_wifi_pw"
+char auth[] = "your_big_long_blynk_project_alphanumeric_key";
+#define WIFI_SSID "your_wifi_ssd"
+#define WIFI_PW "your_wifi_password"
 
 
 void setup()

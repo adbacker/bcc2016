@@ -33,25 +33,26 @@
 #include <BlynkSimpleEsp8266.h>
 #include <SimpleTimer.h>
 
-//stuff for the dht22 
+
+//defines for the temperature sensor
 #include <DHT.h>
-#define DHTPIN 5     // what digital pin we're connected to
+#define DHTPIN 14     // what digital pin we're connected to
 // Uncomment whatever type you're using!
 //#define DHTTYPE DHT11   // DHT 11
 #define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
 DHT dht(DHTPIN, DHTTYPE);
 
 
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
-char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_wifi_ssid"
+// Blynk App auth token.
+char auth[] = "your_big_long_blynk_project_alphanumeric_key";
+#define WIFI_SSID "your_wifi_ssd"
 #define WIFI_PW "your_wifi_password"
 
+//use simple timer events instead of running inside the loop()
 SimpleTimer timer;
 
 
-// This function sends Arduino's up time every second to Virtual Pin (5).
+// This function sends temp and humidity readings to Virtual Pins 5 and 6.
 // In the app, Widget's reading frequency should be set to PUSH. This means
 // that you define how often to send data to Blynk App.
 void sendTemp()

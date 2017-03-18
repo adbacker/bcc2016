@@ -42,9 +42,8 @@ Ultrasonic ultrasonic(ULTRASONIC_TRIGGER_PIN,ULTRASONIC_ECHO_PIN); // (Trig PIN,
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
 char auth[] = "blynk_big_long_alphanumeric_string_here";
-#define WIFI_SSID "your_ssid"
-#define WIFI_PW "your_wifi_pw"
-
+#define WIFI_SSID "your_ssid";
+#define WIFI_PW "your_wifi_pw";
 
 WidgetLCD lcd(V1);
 
@@ -70,8 +69,6 @@ void updateLcd() {
   else {
     lcd.print(1,1, "     OPEN      ");
   }
-  //lcd.print(8,1,"    ");
-  //lcd.print(8,1,distanceToGarageDoor);
 }
 
 void setup()
