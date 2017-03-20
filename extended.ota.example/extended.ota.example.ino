@@ -7,8 +7,8 @@
 
 #define LEDTOBLINK 0
 
-const char* ssid = "ssid_here";
-const char* password = "ssid_password_here";
+const char* ssid = "iotdemo";
+const char* password = "snoopy123";
 SimpleTimer timer;  //timer leaves headroom for wifi overhead
 int ledState=0;
 
@@ -29,16 +29,16 @@ void setup() {
   Serial.println("Booting");
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println("Connection Failed! Rebooting...");
+  //while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+  //  Serial.println("Connection Failed! Rebooting...");
     delay(5000);
-    ESP.restart();
-  }
+  //  ESP.restart();
+  //}
 
   /*
    * BEGIN Arduino Over-the-air update stuff
    */
-   printToLcd("starting OTA","initialization");
+   //printToLcd("starting OTA","initialization");
    // Port defaults to 8266
   // ArduinoOTA.setPort(8266);
  
@@ -46,7 +46,7 @@ void setup() {
   //ArduinoOTA.setHostname("bcc_esp8266");
 
   // No authentication by default...but good to do!
-  ArduinoOTA.setPassword((const char *)"Abcd1234");
+  //ArduinoOTA.setPassword((const char *)"Abcd1234");
 
   ArduinoOTA.onStart([]() {
     Serial.println("Start");
@@ -66,8 +66,6 @@ void setup() {
     else if (error == OTA_END_ERROR) Serial.println("End Failed");
   });
   ArduinoOTA.begin();
-  printToLcd("OTA init","complete");
-  flash(4);
   /*
   * END Arduino Over-the-air update stuff
   */
