@@ -33,9 +33,10 @@
 
 #define WATER_SENSOR_PIN 14 //nodemcu pin D5
 
-char auth[] = "your_big_long_blynk_project_alphanumeric_key";
-#define WIFI_SSID "your_wifi_ssd"
-#define WIFI_PW "your_wifi_password"
+char auth[] = "big_long_blynk_access_key";
+
+#define WIFI_SSID "your_ssid"
+#define WIFI_PW "your_wifi_pw"
 
 WidgetLED waterWarnLed(V2);
 
@@ -81,4 +82,3 @@ void loop()
   Blynk.run(); // Initiates Blynk
   timer.run(); // Initiates SimpleTimer
 }
-

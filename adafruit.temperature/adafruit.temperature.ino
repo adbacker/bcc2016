@@ -24,15 +24,15 @@
 
 /************************* WiFi Access Point *********************************/
 
-#define WIFI_SSID "your_wifi_ssd"
-#define WIFI_PW "your_wifi_password"
 
+#define WIFI_SSID "your_ssid"
+#define WIFI_PW "your_wifi_pw"
 /************************* Adafruit.io Setup *********************************/
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    "adafruit_username"
-#define AIO_KEY         "adafruit_key_goz_here"
+#define AIO_USERNAME    "your_adafruit_username"
+#define AIO_KEY         "big_long_alphanumeric_key"
 
 /************ Global State (you don't need to change this!) ******************/
 
@@ -50,6 +50,8 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
 Adafruit_MQTT_Publish temperature = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bcctemp");
 Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bcchumid");
+Adafruit_MQTT_Publish bcciot_humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/bcciot_humidity");
+
 
 
 /*************************** DHT sensor setup Code ******************************/
@@ -74,17 +76,18 @@ void MQTT_connect();
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(57600);
   delay(10);
 
-  Serial.println(F("Adafruit MQTT demo"));
+  Serial.println("Adafruit MQTT demo");
 
   // Connect to WiFi access point.
-  Serial.println(); Serial.println();
+  Serial.println();
+  Serial.println();
   Serial.print("Connecting to ");
-  Serial.println(WLAN_SSID);
+  Serial.println(WIFI_SSID);
 
-  WiFi.begin(WLAN_SSID, WLAN_PASS);
+  WiFi.begin(WIFI_SSID, WIFI_PW);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
@@ -142,7 +145,12 @@ int getTemp() {
     Serial.print("Temperature: ");
     Serial.print(event.temperature);
     Serial.println(" *C");
-    return event.temperature;
+    //sneaky way to calc f from c per https://forum.arduino.cc/index.php?topic=139006.0
+    int degreesf=(event.temperature * 18 + 325)/10;  // note max celsius == 1820
+    Serial.print(degreesf);
+    Serial.println(" *F");
+    return degreesf;
+
   }
 }
 
@@ -200,6 +208,12 @@ void loop() {
     Serial.println(F("OK!"));
   }
 
+  if (! bcciot_humidity.publish(humid)) {
+    Serial.println(F("Failed"));
+  } else {
+    Serial.println(F("OK!"));
+  }
+
   // ping the server to keep the mqtt connection alive
   // NOT required if you are publishing once every KEEPALIVE seconds
   /*
@@ -207,7 +221,7 @@ void loop() {
     mqtt.disconnect();
   }
   */
-  delay(3000);
+  delay(8000);
 
   
 }

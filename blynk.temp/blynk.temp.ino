@@ -44,9 +44,10 @@ DHT dht(DHTPIN, DHTTYPE);
 
 
 // Blynk App auth token.
-char auth[] = "your_big_long_blynk_project_alphanumeric_key";
-#define WIFI_SSID "your_wifi_ssd"
-#define WIFI_PW "your_wifi_password"
+char auth[] = "big_long_blynk_access_key";
+
+#define WIFI_SSID "your_ssid"
+#define WIFI_PW "your_wifi_pw"
 
 //use simple timer events instead of running inside the loop()
 SimpleTimer timer;
@@ -92,4 +93,3 @@ void loop()
   Blynk.run(); // Initiates Blynk
   timer.run(); // Initiates SimpleTimer
 }
-

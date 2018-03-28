@@ -7,8 +7,8 @@
 
 #define LEDTOBLINK 0
 
-const char* ssid = "iotdemo";
-const char* password = "snoopy123";
+const char* ssid = "your_ssid";
+const char* password = "your_wifi_pw";
 SimpleTimer timer;  //timer leaves headroom for wifi overhead
 int ledState=0;
 
@@ -31,7 +31,7 @@ void setup() {
   WiFi.begin(ssid, password);
   //while (WiFi.waitForConnectResult() != WL_CONNECTED) {
   //  Serial.println("Connection Failed! Rebooting...");
-    delay(5000);
+    delay(1000);
   //  ESP.restart();
   //}
 
